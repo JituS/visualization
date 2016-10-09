@@ -16,7 +16,6 @@ window.onload = function() {
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 		  if (this.readyState == 4 && this.status == 200) {
-		   document.getElementById("demo").innerHTML = this.responseText;
 		  }
 		};
 		xhttp.open("POST", "country", true);
@@ -25,7 +24,8 @@ window.onload = function() {
 	};
 	var type = function(each){
 		each.year = +each.year; 
-		each.population; return each
+		each.population = +each.population; 
+		return each;
 	};
 	var outerWidth = 900;
 	var outerHeight = 600;
@@ -46,7 +46,6 @@ window.onload = function() {
 
 		xScale.domain(data.map(function(d){return d['year']}));
 		yScale.domain([minPopulation, maxPopulation]);
-
 		var xAxis = d3.svg.axis().scale(xScale).orient('bottom');
 		var yAxis = d3.svg.axis().scale(yScale).orient('left');
 
@@ -60,7 +59,7 @@ window.onload = function() {
 
 		outerG.selectAll('rect').data(data).enter().append('rect')
 			.attr('x', function(d){return margin.left + xScale(d['year'])})
-			.attr('y', function(d){ return  yScale(d.population)})
+			.attr('y', function(d){return  yScale(d.population)})
 			.attr('width', xScale.rangeBand())
 			.attr('fill', function(d){return colorScale(d.year)})
 			.attr('height', function(d){ return innerHeight - yScale(d.population)});

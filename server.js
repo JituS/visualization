@@ -20,7 +20,8 @@ app.post('/country', function(req, res){
 	}).on('end', function(){
 		var countryName = data.toString().split('=')[1];
 		writeData(parseData(data, countryName));
-	})
+	});
+	res.send('');
 })
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 var ip = process.env.OPENSHIFT_NODEJS_IP || "localhost";
